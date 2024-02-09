@@ -57,17 +57,17 @@ class PlayList {
 
     /** Removes the last track from this list. If the list is empty, does nothing. */
      public void removeLast() {
-        if (this.size != 0) {
-            this.tracks[this.size - 1] = null;
-            this.size--;
-        }
-    }
+         if (this.size != 0) {
+             this.tracks[this.size - 1] = null;
+             this.size--;
+         }
+     }
     
     /** Returns the total duration (in seconds) of all the tracks in this list.*/
     public int totalDuration() {
         int total = 0;
         for (int i = 0 ; i < this.size ; i++) {
-            total += this.tracks[i].getDuration();
+             total += this.tracks[i].getDuration();
         }
         return total;
     }
@@ -77,10 +77,10 @@ class PlayList {
     public int indexOf(String title) {
         String titleFormatted = title.toLowerCase(); 
         for (int i = 0 ; i < this.size ; i++) {
-            String lower = this.tracks[i].getTitle().toLowerCase();
-            if (titleFormatted.equals(lower)) {
-                return i;
-            } 
+             String lower = this.tracks[i].getTitle().toLowerCase();
+             if (titleFormatted.equals(lower)) {
+                 return i;
+             } 
         }
         return -1;
     }
@@ -99,8 +99,8 @@ class PlayList {
             add(track);
             return true;
         }
-        for (int j = this.size ; i < j ; j-- ) {
-            this.tracks[j] = this.tracks[j-1];
+        for (int j = this.size ; i < j ; j--) {
+             this.tracks[j] = this.tracks[j-1];
         }
         this.tracks[i] = track;
         this.size++;
@@ -115,10 +115,10 @@ class PlayList {
         if (i < 0 || i >= this.size) {
             return -1; 
         }
-        for (int j = i ; j < this.size - 1; j++ ) {
-            this.tracks[j] = this.tracks[j+1];
+        for (int j = i ; j < this.size - 1; j++) {
+             this.tracks[j] = this.tracks[j+1];
         }
-        this.tracks[this.size - 1] =null;
+        this.tracks[this.size - 1] = null;
         this.size--;
         return 0;
     }
@@ -128,10 +128,10 @@ class PlayList {
      *  is negative or too big for this list, does nothing. */
     public void remove(String title) {
         for (int i = 0 ; i < this.size ; i++) {
-            if (title.equals(this.tracks[i].getTitle())) {
-                remove(i); 
-                return;
-            }
+             if (title.equals(this.tracks[i].getTitle())) {
+                 remove(i); 
+                 return;
+             }
         } 
     }
 
@@ -148,11 +148,11 @@ class PlayList {
      *  If the total size of both lists is too large, does nothing. */
     //// An elegant and terribly inefficient implementation.
      public void add(PlayList other) {
-        if (this.size + other.size <= this.maxSize) {
-            for (int i = 0 ; i < other.size ; i++) {
-                add(other.tracks[i]);
-            }
-        }
+         if (this.size + other.size <= this.maxSize) {
+             for (int i = 0 ; i < other.size ; i++) {
+                  add(other.tracks[i]);
+             }
+         }
     }
 
     /** Returns the index in this list of the track that has the shortest duration,
@@ -167,10 +167,9 @@ class PlayList {
         }
         int min = start;
         for (int i = start ; i < this.size ; i++) {
-            if (this.tracks[i].getDuration() < 
-                this.tracks[min].getDuration()) {
-                min = i;
-            }
+             if (this.tracks[i].getDuration() < this.tracks[min].getDuration()) {
+                 min = i;
+             }
         }
         return min;
     }
@@ -186,7 +185,7 @@ class PlayList {
      *  rather than returning a new, sorted playlist, the method sorts
      *  the list on which it was called (this list). */
     public void sortedInPlace() {
-            for(int i = 0 ; i < this.size - 1 ; i++) {
+        for(int i = 0 ; i < this.size - 1 ; i++) {
             Track temp = this.tracks[i];
             int min = minIndex(i);
             if (min != i) {
