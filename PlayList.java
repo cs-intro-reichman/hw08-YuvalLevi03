@@ -67,7 +67,7 @@ class PlayList {
     public int totalDuration() {
         int total = 0;
         for (int i = 0 ; i < this.size ; i++) {
-            total =+ this.tracks[i].getDuration();
+            total += this.tracks[i].getDuration();
         }
         return total;
     }
