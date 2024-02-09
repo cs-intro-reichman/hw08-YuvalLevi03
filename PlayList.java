@@ -35,32 +35,53 @@ class PlayList {
      *  If the list is full, does nothing and returns false.
      *  Otherwise, appends the track and returns true. */
     public boolean add(Track track) {
-        //// replace the following statement with your code
-        return true;
+        if (this.size == this.maxSize) {
+            return false;
+        } else {
+            this.tracks[this.size] =  track;
+            this.size++;
+            return true;
+        }
     }
 
     /** Returns the data of this list, as a string. Each track appears in a separate line. */
     //// For an efficient implementation, use StringBuilder.
     public String toString() {
-        //// replace the following statement with your code
-        return "";
+        StringBuilder strPlaylist = new StringBuilder();
+        for (int i = 0 ; i < this.size ; i++) {
+            strPlaylist.append(this.tracks[i]);
+            strPlaylist.append("\n");
+        }
+        return strPlaylist.toString();
     }
 
     /** Removes the last track from this list. If the list is empty, does nothing. */
      public void removeLast() {
-        //// replace this comment with your code
-    }
+         if (this.size != 0) {
+             this.tracks[this.size - 1] = null;
+             this.size--;
+         }
+     }
     
     /** Returns the total duration (in seconds) of all the tracks in this list.*/
     public int totalDuration() {
-        //// replace the following statement with your code
-        return 0;
+        int total = 0;
+        for (int i = 0 ; i < this.size ; i++) {
+             total += this.tracks[i].getDuration();
+        }
+        return total;
     }
 
     /** Returns the index of the track with the given title in this list.
      *  If such a track is not found, returns -1. */
     public int indexOf(String title) {
-        //// replace the following statement with your code
+        String titleFormatted = title.toLowerCase(); 
+        for (int i = 0 ; i < this.size ; i++) {
+             String lower = this.tracks[i].getTitle().toLowerCase();
+             if (titleFormatted.equals(lower)) {
+                 return i;
+             } 
+        }
         return -1;
     }
 
@@ -71,34 +92,67 @@ class PlayList {
      *  is full, does nothing and returns false. Otherwise, inserts the track and
      *  returns true. */
     public boolean add(int i, Track track) {
-        //// replace the following statement with your code
-        return false;
+        if (i < 0 || i > this.size || this.size == this.maxSize) {
+            return false;
+        }
+        if (i == this.size) {
+            add(track);
+            return true;
+        }
+        for (int j = this.size ; i < j ; j--) {
+             this.tracks[j] = this.tracks[j-1];
+        }
+        this.tracks[i] = track;
+        this.size++;
+        return true;
+
     }
      
     /** Removes the track in the given index from this list.
      *  If the list is empty, or the given index is negative or too big for this list, 
      *  does nothing and returns -1. */
-    public void remove(int i) {
-        //// replace this comment with your code
+    public int remove(int i) {
+        if (i < 0 || i >= this.size) {
+            return -1; 
+        }
+        for (int j = i ; j < this.size - 1 ; j++) {
+             this.tracks[j] = this.tracks[j+1];
+        }
+        this.tracks[this.size - 1] = null;
+        this.size--;
+        return 0;
     }
 
     /** Removes the first track that has the given title from this list.
      *  If such a track is not found, or the list is empty, or the given index
      *  is negative or too big for this list, does nothing. */
     public void remove(String title) {
-        //// replace this comment with your code
+        for (int i = 0 ; i < this.size ; i++) {
+             if (title.equals(this.tracks[i].getTitle())) {
+                 remove(i); 
+                 return;
+             }
+        } 
     }
 
     /** Removes the first track from this list. If the list is empty, does nothing. */
     public void removeFirst() {
-        //// replace this comment with your code
+        if (this.size == 0) {
+            return;
+        } else {
+            remove(0);
+        }
     }
     
     /** Adds all the tracks in the other list to the end of this list. 
      *  If the total size of both lists is too large, does nothing. */
     //// An elegant and terribly inefficient implementation.
      public void add(PlayList other) {
-        //// replace this comment with your code
+         if (this.size + other.size <= this.maxSize) {
+             for (int i = 0 ; i < other.size ; i++) {
+                  add(other.tracks[i]);
+             }
+         }
     }
 
     /** Returns the index in this list of the track that has the shortest duration,
@@ -108,8 +162,16 @@ class PlayList {
      *  If start is negative or greater than size - 1, returns -1.
      */
     private int minIndex(int start) {
-        //// replace the following statement with your code
-        return 0;
+        if (start < 0 || start >= this.size) {
+            return -1;
+        }
+        int min = start;
+        for (int i = start ; i < this.size ; i++) {
+             if (this.tracks[i].getDuration() < this.tracks[min].getDuration()) {
+                 min = i;
+             }
+        }
+        return min;
     }
 
     /** Returns the title of the shortest track in this list. 
@@ -123,8 +185,14 @@ class PlayList {
      *  rather than returning a new, sorted playlist, the method sorts
      *  the list on which it was called (this list). */
     public void sortedInPlace() {
-        // Uses the selection sort algorithm,  
-        // calling the minIndex method in each iteration.
-        //// replace this statement with your code
+        for(int i = 0 ; i < this.size - 1 ; i++) {
+            Track temp = this.tracks[i];
+            int min = minIndex(i);
+            if (min != i) {
+                this.tracks[i] = this.tracks[min];
+                this.tracks[min] = temp;
+            }
+            
+        }
     }
 }
