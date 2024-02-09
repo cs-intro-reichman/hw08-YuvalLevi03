@@ -187,7 +187,7 @@ class PlayList {
      *  rather than returning a new, sorted playlist, the method sorts
      *  the list on which it was called (this list). */
     public void sortedInPlace() {
-            for(int i = 0 ; i < this.size ; i++) {
+            for(int i = 0 ; i < this.size - 1 ; i++) {
             Track temp = this.tracks[i];
             int min = minIndex(i);
             if (min != i) {
