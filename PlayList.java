@@ -186,8 +186,14 @@ class PlayList {
      *  rather than returning a new, sorted playlist, the method sorts
      *  the list on which it was called (this list). */
     public void sortedInPlace() {
-        // Uses the selection sort algorithm,  
-        // calling the minIndex method in each iteration.
-        //// replace this statement with your code
+            for(int i = 0 ; i < this.size ; i++) {
+            Track temp = this.tracks[i];
+            int min = minIndex(i);
+            if (min != i) {
+                this.tracks[i] = this.tracks[min];
+                this.tracks[min] = temp;
+            }
+            
+        }
     }
 }
