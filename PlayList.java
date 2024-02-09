@@ -97,7 +97,6 @@ class PlayList {
         }
         if (i == this.size) {
             add(track);
-            this.size++;
             return true;
         }
         for (int j = this.size ; i < j ; j-- ) {
